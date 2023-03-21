@@ -23,8 +23,8 @@ def load_data():
     return selected_features, crops
 
 def train_model(selected_features, crops):
-    x_train, x_test, y_train, y_test = train_test_split(selected_features, crops, test_size=0.2, random_state=3)
-    random_forest = RandomForestClassifier(n_estimators=20, random_state=10)  
+    x_train, x_test, y_train, y_test = train_test_split(selected_features, crops, test_size=0.0001, random_state=3)
+    random_forest = RandomForestClassifier(n_estimators=20, random_state=2)  
     random_forest.fit(x_train.values, y_train.values)
     pickle.dump(random_forest, open('modal.pkl','wb'))
     return random_forest, x_test, y_test
@@ -54,4 +54,4 @@ if __name__ == '__main__':
     selected_features, crops = load_data()
     model, x_test, y_test = train_model(selected_features, crops)
     machine_learning_model = model
-    predict_crop()
+    # predict_crop()

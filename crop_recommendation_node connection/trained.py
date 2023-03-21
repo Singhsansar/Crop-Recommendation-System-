@@ -7,8 +7,8 @@ import numpy as np
 
 def predict():
         f = open('modal.pkl', 'rb')
-        values = [23,2,96,4,36]
-        # values = list(sys.argv[1].split(","))
+        # values = [23,2,96,4,36]
+        values = list(sys.argv[1].split(","))
         data = np.array([values])
         model = pickle.load(f)
         y_pred = model.predict(data)
@@ -22,7 +22,6 @@ def predict():
         print(json.dumps(resp))
         # print(resp)
         # sys.stdout.flush()
-
 
 if __name__ == '__main__':
     predict()
