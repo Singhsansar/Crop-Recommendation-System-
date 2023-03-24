@@ -118,10 +118,15 @@
       <div class="cols">
         <div class="crop hidden"><h1 style="color: rgb(0, 0, 0);font-size: 3rem">Recommended Crop</h1>
             <br>
-                <h1 style="color: rgb(0, 0, 0); font-size: 3rem;" class ="crop-recommendation"></h1>
+                <h1 style="color: rgb(0, 0, 0); font-size: 3rem;" class ="crop-recommendation">SIngh</h1>
+                <form action="http://localhost:4100/" method="GET">
+                    <button type="submit" style="color: black; background-color: white; margin-top: 5px; width: 6vw; height: 5vh; text-align: center;" placeholder="Back" class="btn">Home</button>
+                </form>
             </div>
+            
+            
         <div class="form justify-center back">
-            <form action="getcrop" id="details" onsubmit="return getcrop()" name="myform" method="POST">
+            <form name="myform" onsubmit="return getcrop()"> 
                 <label for="input">Enter the Nitrogen</label><br>
                 <input type="number" placeholder="" name="N" class="text" required>
                 <label for="input">Enter the Phosphorous</label><br>
@@ -133,6 +138,7 @@
                 <label for="input">Enter the Tempreture</label><br>
                 <input type="number" placeholder="" name="T" class="text" required>
                 <div class="justify-center"><input type="submit" class="btn"></div>
+                <div class="justify-center"><input type="reset" style="color: black; background-color: white; margin-top: 5px; width: 6vw; height: 5vh; text-align: center;" class="btn"></div>
             </form>
 
             <!-- <img src="https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt=""> -->
@@ -140,42 +146,17 @@
       </div>
     </div>
 
-    <!-- <script>
+    <script>
         
         function showCrop(cropname)
         {
             document.querySelector(".crop").classList.remove("hidden");
-            document.querySelector("crop-recommendation").innerHTML=`" ${cropname} "`;
+            document.querySelector(".crop-recommendation").innerHTML=`" ${cropname} "`;
         }
-
-
-
-
-
-        // function sendreq(arr) {
-        //     $.ajax({
-        //       url: "http://localhost:4100/getcrop",
-        //       type: "POST",
-        //       contentType: "application/json",
-        //       data: JSON.stringify(arr),
-        //       success: function(response) {
-        //         alert(response);
-        //         console.log("Response:", response);
-        //       },
-        //       error: function(xhr, status, error) {
-        //         console.error("Error:", error);
-        //       }
-        //     });}
-
-
-
-
-
-
 
         function getcrop()
         {   
-            var N = document.forms['myform']['N'].value;
+             var N = document.forms['myform']['N'].value;
             const P= document.forms['myform']['P'].value
             const K = document.forms['myform']['K'].value
             const Ph = document.forms['myform']['Ph'].value
@@ -185,23 +166,29 @@
             return false
         }
 
-        // const button = document.querySelector(".btn").addEventListener("click",function()
-        //     {
-        //         var N = document.forms['myform']['N'].value;
-        //         const P= document.forms['myform']['P'].value
-        //         const K = document.forms['myform']['K'].value
-        //         const Ph = document.forms['myform']['Ph'].value
-        //         const T =document.forms['myform']['T'].value 
-        //         console.log(N,P,K,Ph,T);
-        //         var arr = [N,P,K,Ph,T]
-        //         alert(arr)
-        //         sendreq(arr);
-        //     }) 
+        function sendreq(arr)
+        {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:4100/getcrop", true);
+
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onload = () => {
+              if (xhr.readyState == 4 && xhr.status == 200) {
+                const data = xhr.response;
+                showCrop(data)
+                // console.log(data);
+              } else {
+                console.log(`Error: ${xhr.status}`);
+              }
+            };
+            xhr.send(JSON.stringify({arr:arr})); 
+        }
 
 
 
 
-    </script> -->
+    </script>
     
 </body>
 </html>
