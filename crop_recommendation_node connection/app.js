@@ -14,7 +14,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.post('/getcrop', async (req, res) => {
     try {
         const data = req.body.arr.map(Number);
-        const crop = await get_crop(data);
+        const crop = "rice";
         console.log(crop);
         res.status(200).send(crop);
     } catch (error) {
