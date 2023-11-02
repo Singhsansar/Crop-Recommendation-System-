@@ -4,7 +4,7 @@ const path = require('path');
 const { get_crop } = require('./result');
 
 const app = express();
-const port = process.env.PORT || 4200;
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -14,8 +14,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.post('/getcrop', async (req, res) => {
     try {
         const data = req.body.arr.map(Number);
-        const crop = "rice";
-        console.log(crop);
+        const crop = await get_crop(data); //python3 is
+        // console.log(crop);
         res.status(200).send(crop);
     } catch (error) {
         console.error(error);
