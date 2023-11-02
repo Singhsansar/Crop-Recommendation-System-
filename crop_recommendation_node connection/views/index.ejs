@@ -1,194 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crop Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://cdn.pixabay.com/photo/2017/06/15/17/31/background-2406119_960_720.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .source-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .source-link:hover {
+            background-color: #45a049;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .text-input {
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        .text-input:focus {
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn,
+        .reset-btn {
+            width: 200px;
+            margin: 20px 10px 0 10px;
+            padding: 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover,
+        .reset-btn:hover {
+            background-color: #45a049;
+        }
+
+        .crop {
+            /* display: none; */
+            font-size: 24px;
+            margin-top: 20px;
+            background-color: #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
-<style>
-    body{
-        background-image: url("https://cdn.pixabay.com/photo/2017/06/15/17/31/background-2406119_960_720.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    .container{   
-        margin-left: auto;
-        margin-right: auto;} 
-    .mx-auto
-    {
-        padding: auto;
-        max-width: 70vw;}
-    .logo
-    {
-        margin-top: 2vh;
-        margin-left: 2vw;
-        font-size: 4rem;
-        color: white;
-        font-weight: bold;
-        /* display: flex;
-        justify-content: center; */
-    }
 
-    .text
-    {
-        display: flex;
-        justify-content: center;
-        width: 20rem;
-        height: 3rem;
-        font-size: 20px;
-        border-radius: 10px;
-        background-color: rgb(83, 78, 78);
-        color: rgb(255, 255, 255);
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .justify-center
-    {
-        display: flex ;
-        justify-content: center;
-    }
-
-    input{border: 2px solid black;}
-
-    .btn{
-        padding: 1rem 2rem;
-        border-radius: 10px;
-        background-color: brown;
-        color: white;
-        font-size: 20px;}
-
-    .btn:hover
-    {
-        background-color: rgb(148, 72, 72);
-
-    }
-    label
-        {
-        color:rgb(255, 255, 255) ;
-        font-weight: 60px;
-        font-size: 20px;
-    }
-
-    .back 
-    {
-        position: absolute;
-        margin-top: 5vh;
-        margin-left:50vw ;
-        background-color: rgba(0,0,0, 0.8);;
-        min-width: 30vw;
-        border-radius: 10px;
-        min-height: 65vh;
-        margin-right: 2vh !important;
-    }
-
-    form
-    {
-        margin-top: 3.8vh;
-    }
-    .cols
-    {
-        display: flex;
-        flex-direction: row;
-    }
-    .crop
-    {
-        text-align: center;
-        position: absolute;
-        margin-top: 5vh;
-        background-color: rgba(139, 202, 37, 0.418);;
-        min-width: 20vw;
-        border-radius: 10px;
-        min-height: 40vh;
-        margin-right: 2vh !important;
-    }
-
-    .hidden
-    {
-        display: none;
-    }
-    
-
-
-</style>
 <body>
+    <a href="https://github.com/Singhsansar/Crop-Recommendation-System-" class="source-link" target="_blank">View on GitHub</a>
+    <div class="form-container">
+        <div class="logo">Crop Recommendation System</div>
+        <form name="myform" onsubmit="return getcrop()">
+            <input type="number" name="N" class="text-input" placeholder="Enter Nitrogen" required><br>
+            <input type="number" name="P" class="text-input" placeholder="Enter Phosphorous" required><br>
+            <input type="number" name="K" class="text-input" placeholder="Enter Potassium" required><br>
+            <input type="number" name="Ph" class="text-input" placeholder="Enter Ph-value" min="0" max="14" step="0.1" required><br>
+            <input type="number" name="T" class="text-input" placeholder="Enter Temperature" required><br>
+            <button type="submit" class="submit-btn">Get Recommendation</button>
+            <button type="reset" class="reset-btn">Reset</button>
+        </form>
 
-    <div><p class="logo">Crops Recommendation System</p></div>
-    <div class="container mx-auto">
-      <div class="cols">
-        <div class="crop hidden"><h1 style="color: rgb(0, 0, 0);font-size: 3rem">Recommended Crop</h1>
+        <div class="crop">
+            Recommended Crop
             <br>
-                <h1 style="color: rgb(0, 0, 0); font-size: 3rem;" class ="crop-recommendation">SIngh</h1>
-                <form action="http://localhost:4100/" method="GET">
-                    <button type="submit" style="color: black; background-color: white; margin-top: 5px; width: 6vw; height: 5vh; text-align: center;" placeholder="Back" class="btn">Home</button>
-                </form>
-            </div>
-            
-            
-        <div class="form justify-center back">
-            <form name="myform" onsubmit="return getcrop()"> 
-                <label for="input">Enter the Nitrogen</label><br>
-                <input type="number" placeholder="" name="N" class="text" required>
-                <label for="input">Enter the Phosphorous</label><br>
-                <input type="number" placeholder="" name="P" class="text" required>
-                <label for="input">Enter the Potassium</label><br>
-                <input type="number" placeholder="" name="K" class="text" required>
-                <label for="input">Enter the Ph-value </label><br>
-                <input type="number" placeholder="" name="Ph" class="text" required>
-                <label for="input">Enter the Tempreture</label><br>
-                <input type="number" placeholder="" name="T" class="text" required>
-                <div class="justify-center"><input type="submit" class="btn"></div>
-                <div class="justify-center"><input type="reset" style="color: black; background-color: white; margin-top: 5px; width: 6vw; height: 5vh; text-align: center;" class="btn"></div>
-            </form>
-
-            <!-- <img src="https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt=""> -->
+             <span class="crop-recommendation"></span>
         </div>
-      </div>
     </div>
 
     <script>
-        
-        function showCrop(cropname)
-        {
-            document.querySelector(".crop").classList.remove("hidden");
-            document.querySelector(".crop-recommendation").innerHTML=`" ${cropname} "`;
-        }
-
-        function getcrop()
-        {   
-             var N = document.forms['myform']['N'].value;
-            const P= document.forms['myform']['P'].value
-            const K = document.forms['myform']['K'].value
-            const Ph = document.forms['myform']['Ph'].value
-            const T =document.forms['myform']['T'].value 
-            var arr = [N,P,K,Ph,T]
+        function getcrop() {
+            var N = document.forms['myform']['N'].value;
+            var P = document.forms['myform']['P'].value;
+            var K = document.forms['myform']['K'].value;
+            var Ph = document.forms['myform']['Ph'].value;
+            var T = document.forms['myform']['T'].value;
+            var arr = [N, P, K, Ph, T];
             sendreq(arr);
-            return false
+            return false;
         }
 
-        function sendreq(arr)
-        {
+        function sendreq(arr) {
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:4100/getcrop", true);
+            xhr.open("POST", "https://crop-recomd.onrender.com/getcrop", true);
 
             xhr.setRequestHeader("Accept", "application/json");
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onload = () => {
-              if (xhr.readyState == 4 && xhr.status == 200) {
-                const data = xhr.response;
-                showCrop(data)
-                // console.log(data);
-              } else {
-                console.log(`Error: ${xhr.status}`);
-              }
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    const data = xhr.response;
+                    showCrop(data);
+                } else {
+                    console.log(`Error: ${xhr.status}`);
+                }
             };
-            xhr.send(JSON.stringify({arr:arr})); 
+            xhr.send(JSON.stringify({ arr: arr }));
         }
 
-
-
-
+        function showCrop(cropname) {
+            document.querySelector(".crop").style.display = "block";
+            document.querySelector(".crop-recommendation").textContent = cropname;
+        }
     </script>
-    
 </body>
+
 </html>
