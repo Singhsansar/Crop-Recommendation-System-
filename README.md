@@ -1,6 +1,6 @@
 # Crop Recommendation System
 
-Crop Recommendation System is a web application developed using Python and Node js, utilizing scikit-learn, pandas, and numpy libraries for machine learning and data manipulation. The system assists farmers in determining suitable crops for cultivation based on specific soil and climate conditions.
+Crop Recommendation System is a web application developed using Python and Node js, utilizing scikit-learn, pandas, and numpy libraries for machine learning and data manipulation. The system assists farmers in determining suitable crops for cultivation based on specific soil and climate condition.
 
 ## Demo
 
